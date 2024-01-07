@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {child, get, getDatabase, ref} from "firebase/database";
-import {ICountry, ILang} from "../../types";
+import {ICountry, ILang, IWord} from "../../types";
 import {createClient} from "@supabase/supabase-js";
 import styles from "./main.module.css"
 import Word from "../word/word";
 import {Collocation} from "../collocation/collocation";
+import {v4 as uuidv4} from 'uuid';
+import {useAppDispatch} from "../../services/hooks";
+import {addToList} from "../../services/wordSlice";
+import WordsContainer from "../words-container/words-container";
+
 const supabase = createClient("https://ximyhtygwfqufgyysbkf.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpbXlodHlnd2ZxdWZneXlzYmtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ2MjUzMTMsImV4cCI6MjAyMDIwMTMxM30.xjndeHzLXjES5j8sV-ugEupFH0oNxF6BoQK6p6Rs5QQ");
 
 function Main() {
+    const dispatch = useAppDispatch();
 
     const [countries, setCountries] = useState<ILang[]>([]);
-    const [words, setWords] = useState<string[]>()
+    const [words, setWords] = useState<IWord[]>()
     const shuffleLangs = (arr: ILang[]) => [...arr].sort(() => Math.random() - 0.5);
     const shuffleWords = (arr: string[]) => [...arr].sort(() => Math.random() - 0.5);    useEffect(() => {
         getCountries();
@@ -27,7 +32,15 @@ function Main() {
         const vietininkas = shuffled.flat().map(item => item.vietininkas)
         const arr = [...vardininkas,...galininkas,...kilmininkas,...vietininkas]
          const wordsArr = shuffleWords(arr) as string[]
-        setWords(wordsArr)
+        const updWords : IWord[] = wordsArr.map(value => {
+            const word = {
+                uid: uuidv4(),
+                word: value
+            }
+            dispatch(addToList(word))
+            return word
+        })
+        setWords(updWords)
     }
 
 
@@ -51,17 +64,9 @@ function Main() {
                             })
                         }
                     </div>
-                    <div className={styles.wordsContainer}>
-                        <div className={styles.words}>
-                            {
-                                words!.map((value, index) => {
-                                    return <Word word={value} key={index}/>
-                                })
-                            }
-                        </div>
-                    </div>
+                    <WordsContainer/>
                 <div className={styles.buttons}>
-                    <input type="button" value="Далее" className={styles.button}/>
+                    <input type="button" value="Next" className={styles.button}/>
                 </div>
                 </div>
             }
