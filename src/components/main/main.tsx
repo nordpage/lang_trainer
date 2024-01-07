@@ -4,6 +4,7 @@ import {ICountry, ILang} from "../../types";
 import {createClient} from "@supabase/supabase-js";
 import styles from "./main.module.css"
 import Word from "../word/word";
+import {Collocation} from "../collocation/collocation";
 const supabase = createClient("https://ximyhtygwfqufgyysbkf.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpbXlodHlnd2ZxdWZneXlzYmtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ2MjUzMTMsImV4cCI6MjAyMDIwMTMxM30.xjndeHzLXjES5j8sV-ugEupFH0oNxF6BoQK6p6Rs5QQ");
 
 function Main() {
@@ -44,9 +45,11 @@ function Main() {
                         <p className={styles.city}>{countries[2].vardininkas}</p>
                     </div>
                     <div className={styles.phrases}>
-                        <p>Važiuoju iš </p>
-                        <p>Esu </p>
-                        <p>Važiuoju į </p>
+                        {
+                            countries.map((value, index) => {
+                                return <Collocation key={index}  lang={value} type={index}/>
+                            })
+                        }
                     </div>
                     <div className={styles.wordsContainer}>
                         <div className={styles.words}>

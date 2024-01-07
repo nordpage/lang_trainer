@@ -4,7 +4,7 @@
     display: grid;
     grid-auto-rows: 100px 100px 100px auto 100px;
     margin: 0 196px;
-    height: 100%;
+    height: calc(100% - 80px);
     gap: 48px;
 }
 
