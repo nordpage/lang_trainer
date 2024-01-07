@@ -63,23 +63,26 @@
 }
 
 .button {
-    font-family: arial;
-    color: #FFFFFF !important;
+    font-family: 'Oswald', sans-serif;
+    color: #FFFFFF;
     font-size: 14px;
-    box-shadow: 1px 1px 1px #BEE2F9;
+    border: none;
+    background: none;
     padding: 10px 25px;
     border-radius: 10px;
-    border: 1px solid #3866A3;
-    background: #007BFF;
+    box-shadow: 1px 1px 1px #fff6e1;
+    background: #FFBE1E;
+    -webkit-appearance:initial
 }
 
 .button:hover {
-    color: #cccccc !important;
-    background: #468CCF;
+    color: #000000;
+    background: #fdc950;
 }
 
 .loading {
     display: flex;
+    height: calc(100% - 160px);
     justify-content: center;
     align-items: center;
 }
