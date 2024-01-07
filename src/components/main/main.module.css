@@ -2,10 +2,10 @@
 
 .container {
     display: grid;
-    grid-auto-rows: 100px 100px 100px auto 100px;
+    grid-auto-rows: 100px 100px 100px 100px 100px;
     margin: 0 196px;
-    height: calc(100% - 80px);
-    gap: 48px;
+    height: calc(100% - 160px);
+    gap: 24px;
 }
 
 .progress {
@@ -69,11 +69,17 @@
     box-shadow: 1px 1px 1px #BEE2F9;
     padding: 10px 25px;
     border-radius: 10px;
-    border: 0px solid #3866A3;
+    border: 1px solid #3866A3;
     background: #007BFF;
 }
 
 .button:hover {
     color: #cccccc !important;
     background: #468CCF;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

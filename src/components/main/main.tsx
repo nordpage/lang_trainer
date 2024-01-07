@@ -50,7 +50,7 @@ function Main() {
     return (
         <>
             {
-                countries.length > 0 && <div className={styles.container}>
+                countries.length > 0 ? <div className={styles.container}>
                     <div className={styles.progress}>1/10</div>
                     <div className={styles.cities}>
                         <p className={styles.city}>{countries[0].vardininkas}</p>
@@ -68,7 +68,7 @@ function Main() {
                 <div className={styles.buttons}>
                     <input type="button" value="Next" className={styles.button}/>
                 </div>
-                </div>
+                </div> : <div className={styles.loading}>Loading...</div>
             }
         </>
     );
