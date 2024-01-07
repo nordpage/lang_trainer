@@ -1,16 +1,17 @@
-import {useDrop} from "react-dnd";
-import {useCallback, useState} from "react";
+import {useDrag, useDrop} from "react-dnd";
+import {useCallback, useRef, useState} from "react";
 import Word from "../word/word";
 import {IDrop, IWord} from "../../types";
 import styles from "./collocation.module.css"
 import {useAppSelector} from "../../services/hooks";
-import {wordSelector} from "../../services/wordSlice";
+import {deleteFromList, wordSelector} from "../../services/wordSlice";
 
 type Props = {
     correctWord: string
 }
 const DropZone = function () {
     const {words} = useAppSelector(wordSelector)
+    const ref = useRef<HTMLDivElement>(null)
 
     const [word, setWord] = useState<IWord>()
     const [{ isHover }, dropRef] = useDrop({
@@ -23,9 +24,10 @@ const DropZone = function () {
         }
     })
 
+
     const renderWord = useCallback((ingredient: IWord, index: number) => {
         return (
-            <div>{ingredient.word}</div>
+            <Word word={ingredient} index={index}/>
         )
     }, [])
 

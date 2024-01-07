@@ -2,6 +2,8 @@ import React, {useRef} from 'react';
 import styles from './word.module.css'
 import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import {IWord} from "../../types";
+import {useAppDispatch} from "../../services/hooks";
+import {deleteFromList} from "../../services/wordSlice";
 
 type Props = {
     id?: string,
@@ -9,6 +11,7 @@ type Props = {
     index: number,
 }
 const Word = function ({id, word, index}: Props) {
+    const dispatch = useAppDispatch();
 
     const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, dropRef] = useDrop({
@@ -54,6 +57,12 @@ const Word = function ({id, word, index}: Props) {
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
+        end: (item, monitor) => {
+            const didDrop = monitor.didDrop()
+            if (didDrop) {
+                dispatch(deleteFromList(item.word))
+            }
+        },
     })
 
     const opacity = isDragging ? 0 : 1
