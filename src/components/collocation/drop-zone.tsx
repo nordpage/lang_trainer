@@ -5,6 +5,7 @@ import {IDrop, IWord} from "../../types";
 import styles from "./collocation.module.css"
 import {useAppSelector} from "../../services/hooks";
 import {deleteFromList, wordSelector} from "../../services/wordSlice";
+import { TiTrash } from "react-icons/ti";
 
 type Props = {
     correctWord: string
@@ -27,7 +28,7 @@ const DropZone = function () {
 
     const renderWord = useCallback((ingredient: IWord, index: number) => {
         return (
-            <Word word={ingredient} index={index}/>
+            <div className={styles.horz}><Word word={ingredient} index={index}/><TiTrash/></div>
         )
     }, [])
 

@@ -12,5 +12,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
+.horz{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
